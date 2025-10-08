@@ -25,7 +25,15 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv("${env.SONARQUBE_ENV}") {
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=HCL-POC -Dsonar.projectName=HCL-POC'
+                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                        sh '''
+                            mvn sonar:sonar \
+                            -Dsonar.projectKey=HCL-POC \
+                            -Dsonar.projectName=HCL-POC \
+                            -Dsonar.host.url=http://52.63.18.94:9000 \
+                            -Dsonar.login=$SONAR_TOKEN
+                        '''
+                    }
                 }
             }
         }
