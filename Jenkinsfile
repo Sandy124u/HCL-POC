@@ -47,7 +47,7 @@ pipeline {
             }
         }
 
-        stage('Trivy Scan - JAR File') {
+         stage('Trivy Scan - JAR File') {
             steps {
                 sh '''
                     echo "Running Trivy scan on packaged JAR."
