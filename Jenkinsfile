@@ -47,7 +47,7 @@ pipeline {
             }
         }
 
-         stage('Trivy Scan - JAR File') {
+        stage('Trivy Scan - JAR File') {
             steps {
                 sh '''
                     echo "Running Trivy scan on packaged JAR."
@@ -55,20 +55,20 @@ pipeline {
                 '''
             }
         }
-    }
-        stage('Deploy to Nexus') {
-           steps {
-               withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
-                sh '''
-                  mvn deploy -DskipTests=true \
-                  -DaltDeploymentRepository=maven-releases::default::http://13.210.241.135:8081/:8081/repository/maven-releases/ \
-                  -Dnexus.username=$NEXUS_USER \
-                  -Dnexus.password=$NEXUS_PASS
-                '''
-              }
-         }
-     }
 
+        stage('Deploy to Nexus') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+                    sh '''
+                        mvn deploy -DskipTests=true \
+                        -DaltDeploymentRepository=maven-releases::default::http://13.210.241.135:8081/repository/maven-releases/ \
+                        -Dnexus.username=$NEXUS_USER \
+                        -Dnexus.password=$NEXUS_PASS
+                    '''
+                }
+            }
+        }
+    }
 
     post {
         success {
