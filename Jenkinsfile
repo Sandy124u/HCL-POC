@@ -50,7 +50,7 @@ pipeline {
         stage('Trivy Scan - JAR File') {
             steps {
                 sh '''
-                    echo "Running Trivy scan on packaged JAR.."
+                    echo "Running Trivy scan on packaged JAR."
                     trivy fs target/hello-world-1.0-SNAPSHOT.jar --exit-code 0 --severity HIGH,CRITICAL --format table
                 '''
             }
