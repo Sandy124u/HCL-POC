@@ -39,10 +39,6 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            echo 'Build and SonarQube analysis completed successfully.'
-        }
     stage('Trivy Vulnerability Scan') {
      steps {
         sh '''
@@ -56,4 +52,8 @@ pipeline {
             echo 'Build or analysis failed. Check logs for details.'
         }
     }
+    post {
+        success {
+            echo 'Build and SonarQube analysis completed successfully.'
+        }
 }
