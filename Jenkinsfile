@@ -43,6 +43,15 @@ pipeline {
         success {
             echo 'Build and SonarQube analysis completed successfully.'
         }
+    stage('Trivy Vulnerability Scan') {
+     steps {
+        sh '''
+            echo "Running Trivy scan on project directory..."
+            trivy fs . --exit-code 0 --severity HIGH,CRITICAL --format table
+        '''
+    }
+}
+
         failure {
             echo 'Build or analysis failed. Check logs for details.'
         }
