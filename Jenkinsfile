@@ -59,7 +59,7 @@ pipeline {
 
     post {
         success {
-            echo 'Build, analysis, and vulnerability scans completed successfully.'
+            echo 'Build, analysis, and vulnerability scans completed successfully..'
         }
         failure {
             echo 'Pipeline failed. Check logs for details.'
