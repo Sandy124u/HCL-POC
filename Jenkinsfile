@@ -18,7 +18,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean compile'
+                sh 'mvn clean package'
             }
         }
 
@@ -38,7 +38,7 @@ pipeline {
             }
         }
 
-        stage('Trivy Vulnerability Scan') {
+        stage('Trivy Scan - Project Directory') {
             steps {
                 sh '''
                     echo "Running Trivy scan on project directory..."
@@ -46,14 +46,23 @@ pipeline {
                 '''
             }
         }
+
+        stage('Trivy Scan - JAR File') {
+            steps {
+                sh '''
+                    echo "Running Trivy scan on packaged JAR..."
+                    trivy fs target/hello-world-1.0-SNAPSHOT.jar --exit-code 0 --severity HIGH,CRITICAL --format table
+                '''
+            }
+        }
     }
 
     post {
         success {
-            echo 'Build and SonarQube analysis completed successfully.'
+            echo 'Build, analysis, and vulnerability scans completed successfully.'
         }
         failure {
-            echo 'Build or analysis failed. Check logs for details.'
+            echo 'Pipeline failed. Check logs for details.'
         }
     }
 }
