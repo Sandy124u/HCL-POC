@@ -41,7 +41,7 @@ pipeline {
         stage('Trivy Scan - Project Directory') {
             steps {
                 sh '''
-                    echo "Running Trivy scan on project directory..."
+                    echo "Running Trivy scan on project directory.."
                     trivy fs . --exit-code 0 --severity HIGH,CRITICAL --format table
                 '''
             }
