@@ -62,8 +62,7 @@ pipeline {
                     sh '''
                         mvn deploy -DskipTests=true \
                         -DaltDeploymentRepository=maven-releases::http://3.106.149.220:8081/repository/maven-releases/ \
-                        -Dnexus.username=$NEXUS_USER \
-                        -Dnexus.password=$NEXUS_PASS
+                        
                     '''
                 }
             }
