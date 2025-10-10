@@ -58,13 +58,10 @@ pipeline {
 
         stage('Deploy to Nexus') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
-                    sh '''
-                        mvn deploy -DskipTests=true \
-                        -DaltDeploymentRepository=maven-releases::http://3.106.149.220:8081/repository/maven-releases/ \
-                        
-                    '''
-                }
+                sh '''
+                    mvn deploy -s settings.xml -DskipTests=true \
+                    -DaltDeploymentRepository=maven-releases::http://3.106.149.220:8081/repository/maven-releases/
+                '''
             }
         }
     }
