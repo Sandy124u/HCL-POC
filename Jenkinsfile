@@ -30,7 +30,7 @@ pipeline {
                             mvn sonar:sonar \
                             -Dsonar.projectKey=HCL-POC \
                             -Dsonar.projectName=HCL-POC \
-                            -Dsonar.host.url=http://13.210.241.135:9000 \
+                            -Dsonar.host.url=http://3.106.149.220:9000 \
                             -Dsonar.login=$SONAR_TOKEN
                         '''
                     }
@@ -61,7 +61,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
                     sh '''
                         mvn deploy -DskipTests=true \
-                        -DaltDeploymentRepository=maven-releases::default::http://13.210.241.135:8081/repository/maven-releases/ \
+                        -DaltDeploymentRepository=maven-releases::default::http://3.106.149.220:8081/repository/maven-releases/ \
                         -Dnexus.username=$NEXUS_USER \
                         -Dnexus.password=$NEXUS_PASS
                     '''
