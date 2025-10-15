@@ -47,6 +47,7 @@ pipeline {
             }
         }
 
+        
         stage('Trivy Scan - JAR File') {
             steps {
                 sh '''
@@ -72,7 +73,29 @@ pipeline {
                 '''
             }
         }
+
+        stage('Download JAR from Nexus') {
+            steps {
+               sh '''
+                    echo "Fetching JAR from Nexus..."
+                    curl -u admin:Salary@2025 -O http://3.106.149.220:8081/repository/maven-snapshots/com/example/hello-world/1.0-SNAPSHOT/hello-world-1.0-SNAPSHOT.jar
+               '''
+            }
+        }
+
+        stage('Docker Build & Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+
+                        docker build -t sandysame/hello-world:1.0-SNAPSHOT .
+                        docker push sandysame/hello-world:1.0-SNAPSHOT
+                    '''
+        }
     }
+}
+
 
     post {
         success {
