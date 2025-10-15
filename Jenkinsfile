@@ -94,9 +94,19 @@ pipeline {
                     '''
                }
            }
-       } 
 
-    }
+         stage('Trivy Scan - Docker Image') {
+             steps {
+                 sh '''
+                   echo "Running Trivy scan on Docker image..."
+                   trivy image --exit-code 0 --severity HIGH,CRITICAL --format table sandysame/hello-world:1.0-SNAPSHOT
+                '''
+            }
+        }
+   
+    } 
+
+}
     post {
         success {
             echo '✅ Build, analysis, scans, and deployment completed successfully.'
