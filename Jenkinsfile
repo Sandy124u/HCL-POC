@@ -50,7 +50,10 @@ pipeline {
         stage('Trivy Scan - JAR File') {
             steps {
                 sh '''
-                    echo "Running Trivy scan on packaged JAR."
+                    echo "Extracting JAR for Trivy scan..."
+                    mkdir -p jar-extracted
+                    unzip -o target/hello-world-1.0-SNAPSHOT.jar -d jar-extracted
+                    echo "Running Trivy scan on extracted JAR."
                     trivy fs target/hello-world-1.0-SNAPSHOT.jar --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table
                 '''
             }
