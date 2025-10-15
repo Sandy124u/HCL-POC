@@ -54,7 +54,7 @@ pipeline {
                     mkdir -p jar-extracted
                     unzip -o target/hello-world-1.0-SNAPSHOT.jar -d jar-extracted
                     echo "Running Trivy scan on extracted JAR."
-                    trivy fs target/hello-world-1.0-SNAPSHOT.jar --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table
+                    trivy fs jar-extracted --scanners vuln --exit-code 0 --severity HIGH,CRITICAL --format table
                 '''
             }
         }
