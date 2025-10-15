@@ -58,6 +58,11 @@ pipeline {
                 '''
             }
         }
+        stage('Prepare Maven Settings') {
+            steps {
+                sh 'cp setting.xml $WORKSPACE/settings.xml'
+            } 
+        }
 
         stage('Deploy to Nexus') {
             steps {
