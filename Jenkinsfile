@@ -68,7 +68,7 @@ pipeline {
             steps {
                 sh '''
                     mvn deploy -s settings.xml -DskipTests=true \
-                    -DaltDeploymentRepository=maven-releases::http://3.106.149.220:8081/repository/maven-releases/
+                    -DaltDeploymentRepository=maven-snapshots::http://3.106.149.220:8081/repository/maven-snapshots/
                 '''
             }
         }
