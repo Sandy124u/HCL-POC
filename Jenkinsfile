@@ -92,9 +92,9 @@ pipeline {
                         docker build -t sandysame/hello-world:1.0-SNAPSHOT .
                         docker push sandysame/hello-world:1.0-SNAPSHOT
                     '''
+               }
             }
         }
-
         stage('Trivy Scan - Docker Image') {
              steps {
                  sh '''
