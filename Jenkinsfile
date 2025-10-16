@@ -116,7 +116,7 @@ pipeline {
 
                         aws eks update-kubeconfig --region ap-southeast-2 --name hello-world-cluster
 
-                        helm upgrade --install hello-world-release ./hello-world-chart \
+                        helm upgrade --install hello-world-release /home/ec2-user/hello-world-chart \
                         --set image.tag=${BUILD_NUMBER}
                     '''
                 }
