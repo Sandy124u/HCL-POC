@@ -37,7 +37,7 @@
             <configuration>
                 <archive>
                     <manifest>
-                        <mainClass>com.example.Main</mainClass> <!-- Replace with your actual main class -->
+                        <mainClass>Main</mainClass> <!-- Replace with your actual main class -->
                     </manifest>
                 </archive>
             </configuration>
