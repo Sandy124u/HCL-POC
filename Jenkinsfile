@@ -121,7 +121,7 @@ pipeline {
            }
       }
 
- }
+    }
     post {
         success {
             echo '✅ Build, analysis, scans, and deployment completed successfully.'
