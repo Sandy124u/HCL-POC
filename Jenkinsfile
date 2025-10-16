@@ -105,7 +105,7 @@ pipeline {
         }
    
     } 
-        stage('Helm Deploy to EKS') {
+         stage('Helm Deploy to EKS') {
             steps {
                 withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
                          string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
