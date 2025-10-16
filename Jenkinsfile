@@ -87,9 +87,10 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
                     sh '''
-                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker build -t sandysame/hello-world:1.0-SNAPSHOT .
-                        docker push sandysame/hello-world:1.0-SNAPSHOT
+                       echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+
+                       docker build -t sandysame/hello-world:${BUILD_NUMBER} .
+                       docker push sandysame/hello-world:${BUILD_NUMBER}
                     '''
                 }
             }
