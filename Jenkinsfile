@@ -89,8 +89,9 @@ pipeline {
                     sh '''
                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
 
-                       docker build -t sandysame/hello-world:${BUILD_NUMBER} .
-                       docker push sandysame/hello-world:${BUILD_NUMBER}
+                       docker build -t sandysame/hello-world:nginx .
+                       docker push sandysame/hello-world:nginx
+
                     '''
                 }
             }
