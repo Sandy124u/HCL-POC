@@ -105,6 +105,21 @@ pipeline {
         }
    
     } 
+        stage('Helm Deploy to EKS') {
+            steps {
+                withCredentials([string(credentialsId: 'aws-access-key', variable: 'AWS_ACCESS_KEY_ID'),
+                         string(credentialsId: 'aws-secret-key', variable: 'AWS_SECRET_ACCESS_KEY')]) {
+                    sh '''
+                       export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                       export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+
+                       aws eks update-kubeconfig --region ap-southeast-2 --name hello-world-cluster
+
+                       helm upgrade --install hello-world-release ./hello-world-chart
+                    '''
+               }
+           }
+      }
 
 
     post {
